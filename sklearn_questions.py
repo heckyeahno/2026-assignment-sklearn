@@ -96,7 +96,6 @@ import numpy as np
 
 from sklearn.compose import ColumnTransformer
 from sklearn.ensemble import RandomForestClassifier
-from sklearn.linear_model import LogisticRegression
 from sklearn.impute import SimpleImputer
 from sklearn.model_selection import BaseCrossValidator
 from sklearn.pipeline import Pipeline
@@ -136,7 +135,7 @@ class RegistrationSplit(BaseCrossValidator):
         """
         n_splits = sum(1 for _ in self.split(X,y))
         return n_splits
-    
+
 
         ...
 
@@ -165,10 +164,10 @@ class RegistrationSplit(BaseCrossValidator):
 
         if "registration_month" not in X.columns:
             raise ValueError
-        
+
         if not pd.api.types.is_datetime64_any_dtype(X["registration_month"]):
             raise ValueError ("'registration_month' doit être un dtype datetime" )
-    
+
         mois_ins = X["registration_month"].dt.to_period("M")
         y = np.asarray(y)
         for mois in sorted(mois_ins.dropna().unique()):
@@ -225,7 +224,7 @@ def get_estimator():
         remainder="drop",
     )
 
-    
+
     return Pipeline([
         ("preprocessor", preprocessor),
         (
